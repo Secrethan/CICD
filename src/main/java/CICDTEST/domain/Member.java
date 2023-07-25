@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Getter
 @ToString
 @Entity //Jpa 가 사용하는 객체임을 의미하는 어노테이션
-@Table(name = "algo") // @Table, Column 어노테이션은 클래스,변수가 각각 테이블,컬럼명과 일치하면 생략할 수 있다.
+@Table(name = "member") // @Table, Column 어노테이션은 클래스,변수가 각각 테이블,컬럼명과 일치하면 생략할 수 있다.
 public class Member {
 
     /*
@@ -24,12 +24,16 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer mem_num;
-    private String name;
+    private String mem_id;
+    private int mem_auth;
+    private String mem_token;
 
 
     public static Member toEntity(MemberDTO dto) {
         return Member.builder()
-                .name(dto.getName())
+                .mem_id(dto.getMem_id())
+                .mem_auth(dto.getMem_auth())
+                .mem_token(dto.getMem_token())
                 .build();
     }
 }
