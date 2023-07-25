@@ -66,5 +66,5 @@ jobs:
         --application-name ilhanDeploy \
         --deployment-group-name ilhan-group \
         --file-exists-behavior OVERWRITE \
-        --s3-location bucket=ilhan-deploy,bundleType=zip,key=ilhanTestFile.zip
+        --s3-location bucket=ilhan-deploy,bundleType=zip,key=ilhanTestFile.zip \
         --region ap-northeast-2
