@@ -41,7 +41,7 @@ jobs:
       run: cp appspec.yml ./deploy
     # script files 복사
     - name: Copy script
-      run: cp ./script/*.sh ./deploy
+      run: cp ./scripts/*.sh ./deploy
     # .Zip 파일 생성
     - name: Make zip file
       run: zip -r ./ilhanTestFile.zip ./deploy
@@ -55,3 +55,16 @@ jobs:
      # 파일 업로드
     - name: Upload to S3
       run: aws s3 cp --region ap-northeast-2 ./ilhanTestFile.zip s3://$S3_BUCKET_NAME/
+
+    #Deploy
+    - name: Deploy
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: |
+        aws deploy create-deployment \
+        --application-name ilhanDeploy \
+        --deployment-group-name ilhan-group \
+        --file-exists-behavior OVERWRITE \
+        --s3-location bucket=ilhan-deploy, bundleType=zip, key=ilhanTestFile.zip
+        --region ap-northeast-2
